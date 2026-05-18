@@ -1,0 +1,63 @@
+.gitignore for root directory
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*.iml
+.project
+.classpath
+.factorypath
+.c9/
+*.launch
+.settings/
+.env.local
+
+# OS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# IDE Settings
+.idea/
+.vscode/
+
+# OS Temp Files
+*.tmp
+*.temp
+
+# Backup Files
+*.bak
+*.backup
+*~
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Node
+node_modules/
+package-lock.json
+
+# Maven
+target/
+.m2/
+
+# Build output
+build/
+dist/

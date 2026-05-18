@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: interviewprep-api
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/interviewprep_db
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+        format_sql: true
+    show-sql: false
+  
+  devtools:
+    restart:
+      enabled: false
+
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+
+logging:
+  level:
+    root: INFO
+    com.interviewprep: DEBUG
+
+jwt:
+  secret: ${JWT_SECRET:your-super-secret-key-change-this-in-production-to-a-very-long-string}
+  expiration: 86400000
+
+gemini:
+  api-key: ${GEMINI_API_KEY:your-gemini-api-key}
+  model: gemini-pro

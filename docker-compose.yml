@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: interviewprep-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: interviewprep_db
+      MYSQL_USER: interviewprep
+      MYSQL_PASSWORD: interviewprep
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - interviewprep-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+  backend:
+    build:
+      context: ./interviewprep-backend
+      dockerfile: Dockerfile
+    container_name: interviewprep-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/interviewprep_db
+      SPRING_DATASOURCE_USERNAME: interviewprep
+      SPRING_DATASOURCE_PASSWORD: interviewprep
+      JWT_SECRET: ${JWT_SECRET}
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+    ports:
+      - "8080:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - interviewprep-network
+    restart: on-failure
+
+  frontend:
+    build:
+      context: ./interviewprep-frontend
+      dockerfile: Dockerfile
+    container_name: interviewprep-frontend
+    environment:
+      VITE_API_BASE_URL: http://localhost:8080/api
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    networks:
+      - interviewprep-network
+
+volumes:
+  mysql_data:
+
+networks:
+  interviewprep-network:
+    driver: bridge
