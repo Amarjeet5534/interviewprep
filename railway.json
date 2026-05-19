@@ -1,0 +1,33 @@
+{
+  "build": {
+    "builder": "dockerfile",
+    "buildpacks": []
+  },
+  "deploy": {
+    "startCommand": "java -jar interviewprep-backend/target/app.jar",
+    "restartPolicyMaxRetries": 5,
+    "restartPolicyWindowSeconds": 600
+  },
+  "env": {
+    "SPRING_DATASOURCE_URL": {
+      "description": "MySQL connection URL",
+      "value": "jdbc:mysql://mysql:3306/interviewprep_db"
+    },
+    "SPRING_DATASOURCE_USERNAME": {
+      "description": "MySQL username",
+      "value": "interviewprep"
+    },
+    "SPRING_DATASOURCE_PASSWORD": {
+      "description": "MySQL password",
+      "value": "interviewprep"
+    },
+    "JWT_SECRET": {
+      "description": "JWT secret key for authentication",
+      "value": "your-super-secret-key-change-this"
+    },
+    "GEMINI_API_KEY": {
+      "description": "Google Gemini API key",
+      "value": "your-gemini-api-key"
+    }
+  }
+}
